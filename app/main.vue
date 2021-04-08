@@ -1,6 +1,11 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <FirstComponent msg="Hi" />
+<div>
+<p>
+  Hello World!
+</p>
+</div>
+  
+ 
 </template>
 
 <script>
