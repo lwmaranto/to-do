@@ -1,26 +1,30 @@
-'use strict'
+"use strict";
 module.exports = {
-  entry: './app/main', 
-  mode: 'development',
+  entry: "./app/main",
+  mode: "development",
   output: {
-    path: __dirname, 
-    filename: './public/bundle.js'
+    path: __dirname,
+    filename: "./public/bundle.js",
   },
-  devtool: 'inline-source-map',
+  devtool: "inline-source-map",
   module: {
     rules: [
+      {
+        test: /\.vue$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "vue-loader",
+          },
+        ],
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
-      }
-    ]
-  }
-}
-
-
-
-
-
+          loader: "babel-loader",
+        },
+      },
+    ],
+  },
+};

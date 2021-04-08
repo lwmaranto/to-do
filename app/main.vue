@@ -1,13 +1,36 @@
-import React from 'react'
-import {render} from 'react-dom'
-import {Provider} from 'react-redux'
+<template>
+  <img alt="Vue logo" src="./assets/logo.png" />
+  <FirstComponent msg="Hi" />
+</template>
 
-//import store from './store'
-//import Routes from './components/Routes'
+<script>
+import { reactive } from 'vue'
+import FirstComponent from "./components/FirstComponent.vue";
 
-render(
-  <Provider store={store}>
-    <Routes />
-  </Provider>,
-  document.getElementById('main')
-)
+export default {
+  name: "App",
+  components: {
+    FirstComponent,
+  },
+  setup() {
+    const state = reactive({
+
+    });
+
+    return {
+      state
+    }
+  },
+};
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
