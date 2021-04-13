@@ -3,7 +3,7 @@
 const { VueLoaderPlugin } = require("vue-loader");
 
 module.exports = {
-  entry: "./app/main",
+  entry: ["babel-polyfill", "./app/main"],
   mode: "development",
   output: {
     path: __dirname,

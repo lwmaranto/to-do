@@ -2,13 +2,12 @@
 
 const router = require("express").Router();
 
-router.use('/template', require('./template'));
-
+router.use("/todos", require("./todos"));
 
 router.use((req, res, next) => {
-    const err = new Error("API route not found!");
-    err.status = 404;
-    next(err);
-  });
-  
-  module.exports = router;
+  const err = new Error("API route not found!");
+  err.status = 404;
+  next(err);
+});
+
+module.exports = router;

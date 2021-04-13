@@ -9,7 +9,8 @@
     "build-watch": "webpack -w",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "echo 'Running server for production - developers, use npm run start-dev for development' && node main"
+    "start": "echo 'Running server for production - developers, use npm run start-dev for development' && node main",
+    "seed": "node script/seed.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,8 @@
     "@babel/preset-react": "^7.12.5",
     "@vue/compiler-sfc": "^3.0.11",
     "babel-loader": "^8.1.0",
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "css-loader": "^5.2.0",
     "vue": "^3.0.11",
     "vue-loader": "^16.2.0",
@@ -35,6 +38,8 @@
     "webpack-cli": "^4.2.0"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "babel-polyfill": "^6.26.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "pg": "^8.4.2",

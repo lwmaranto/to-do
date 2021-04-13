@@ -5,10 +5,12 @@
 
 <script>
 export default {
-  name: 'FirstComponent',
+  name: 'Todos',
   props: {
     msg: String
   }
+
+  
 }
 </script>
 

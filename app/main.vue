@@ -1,8 +1,9 @@
 <template>
 <div>
-<p>
-  Hello World!
-</p>
+  <h1>
+    Todos
+  </h1>
+<Todos />
 </div>
   
  
@@ -10,20 +11,40 @@
 
 <script>
 import { reactive } from 'vue'
-import FirstComponent from "./components/FirstComponent.vue";
+import axios from 'axios'
+import { onMounted } from "vue";
+import Todos from "./components/Todos.vue";
 
 export default {
   name: "App",
   components: {
-    FirstComponent,
+    Todos,
   },
   setup() {
     const state = reactive({
-
+      todos: []
     });
 
+    async function fetchTodos() {
+      try {
+         const resp = await axios.get('/api/todos')
+         const todos = resp.data
+         console.log(todos)
+         return todos
+      } catch (error) {
+        console.log('Something went wrong')
+      }
+    }
+
+    onMounted(async () => {
+      state.todos = await fetchTodos()
+      console.log("THE TODOS", state.todos)
+    })
+
     return {
-      state
+      state,
+      onMounted,
+      fetchTodos
     }
   },
 };

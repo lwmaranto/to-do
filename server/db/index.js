@@ -8,8 +8,11 @@ const db = require("./database");
 //
 // const Puppy = require('./puppy')
 // const Owner = require('./owner')
+const Todos = require("./models/todos");
+//require("./models");
 
 module.exports = {
   // Include your models in this exports object as well!
   db,
+  Todos,
 };
