@@ -1,17 +1,21 @@
 <template>
-<div>
-  <h1>
-    Todos
-  </h1>
-<Todos />
-</div>
-  
- 
+  <div>
+    <h1>Todos</h1>
+    <h2>Completed Todos</h2>
+    <table>
+      <Todos v-for="todo in notCompletedTodos"  :key="todo.id" :todo="todo" />
+    </table>
+    <h2>Completed Todos</h2>
+    <table>
+      <Todos v-for="todo in completedTodos" :key="todo.id" :todo="todo" />
+    </table>
+    
+  </div>
 </template>
 
 <script>
-import { reactive } from 'vue'
-import axios from 'axios'
+import { reactive, computed} from "vue";
+import axios from "axios";
 import { onMounted } from "vue";
 import Todos from "./components/Todos.vue";
 
@@ -20,33 +24,77 @@ export default {
   components: {
     Todos,
   },
+  // data() {
+  //   return {
+  //     todos: state.todos
+  //   }
+  // }, 
   setup() {
     const state = reactive({
-      todos: []
+      todos: [],
+
+      
     });
+
+    let completedTodos = computed(() => {
+      return state.todos.filter((x)=> {
+        return x.completionDate !== null
+      })
+    })
+
+    let notCompletedTodos = computed(() => {
+      return state.todos.filter((x)=> {
+        return x.completionDate === null
+      })
+    })
 
     async function fetchTodos() {
       try {
-         const resp = await axios.get('/api/todos')
-         const todos = resp.data
-         console.log(todos)
-         return todos
+        const resp = await axios.get("/api/todos");
+        const todos = resp.data;
+        console.log(todos);
+        return todos;
       } catch (error) {
-        console.log('Something went wrong')
+        console.log("Something went wrong");
       }
     }
 
     onMounted(async () => {
-      state.todos = await fetchTodos()
-      console.log("THE TODOS", state.todos)
-    })
+      console.log("I MOUNTED")
+      state.todos = await fetchTodos();
+      console.log("THE TODOS", state.todos);
+    });
 
     return {
       state,
       onMounted,
-      fetchTodos
-    }
-  },
+      fetchTodos,
+      completedTodos,
+      notCompletedTodos
+    };
+  }
+  // ,
+  // computed: {
+  //   returnCompleted() {
+  //     let completedTodos = []
+  //     for (todo of this.todos) {
+  //       if (todo.completionDate !== null) {
+  //         completedTodos.push(todo)
+  //       }
+  //     }
+  //     return completedTodos
+      
+  //   },
+  //   returnNotCompleted() {
+  //     let NotCompletedTodos = []
+  //     for (todo of this.todos) {
+  //       if (todo.completionDate === null) {
+  //         NotCompletedTodos.push(todo)
+  //       }
+  //     }
+  //     return NotCompletedTodos
+  //   }
+  // }
 };
 </script>
 

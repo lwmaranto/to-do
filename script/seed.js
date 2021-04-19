@@ -5,9 +5,13 @@ const { Todos } = require("../server/db/models");
 
 const todos = [
   {
-    todo: "Wash the dishes",
+    todo: "Finish seeding the database",
     dueDate: "2021-04-08 17:29:14.098 +00:00",
     completionDate: "2021-04-08 17:29:14.098 +00:00",
+  },
+  {
+    todo: "Write the computed values ",
+    dueDate: "2021-04-08 17:29:14.098 +00:00",
   },
 ];
 
@@ -15,11 +19,6 @@ async function seed() {
   try {
     await db.sync({ force: true });
     console.log("db synced!");
-
-    // const users = await Promise.all([
-    //   User.create({ email: "cody@email.com", password: "123", isAdmin: true }),
-    //   User.create({ email: "murphy@email.com", password: "123" }),
-    // ]);
 
     await Promise.all(
       todos.map((todo) => {

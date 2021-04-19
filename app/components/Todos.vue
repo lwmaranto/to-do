@@ -1,13 +1,27 @@
 <template>
-  <div class="one">
-  </div>
+  
+    <tr class="todos">
+      <td>
+      {{todo.todo}}
+      </td>
+      <td>
+      {{todo.dueDate}}
+      </td>
+      <td>
+      {{todo.completionDate}}
+      </td>
+      <td>
+      <!-- button -->
+      </td>
+    </tr>
+  
 </template>
 
 <script>
 export default {
   name: 'Todos',
   props: {
-    msg: String
+    todo: Object,
   }
 
   
