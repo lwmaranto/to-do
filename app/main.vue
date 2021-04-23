@@ -1,20 +1,39 @@
 <template>
   <div>
     <h1>Todos</h1>
-    <h2>Completed Todos</h2>
-    <table>
-      <Todos v-for="todo in notCompletedTodos"  :key="todo.id" :todo="todo" />
-    </table>
-    <h2>Completed Todos</h2>
-    <table>
-      <Todos v-for="todo in completedTodos" :key="todo.id" :todo="todo" />
-    </table>
-    
+
+    <div class="todos">
+      <h2>Completed Todos</h2>
+
+      <table>
+        <tr>
+          <th>TODO</th>
+          <th>DUE DATE</th>
+          <th>COMPLETED AT</th>
+          <th>COMPLETED</th>
+        </tr>
+        <Todos
+          v-for="todo in notCompletedTodos"
+          :key="todo.id"
+          :todo="todo"
+          @todo-complete="complete"
+        />
+      </table>
+      <h2>Completed Todos</h2>
+      <table>
+        <Todos
+          v-for="todo in completedTodos"
+          :key="todo.id"
+          :todo="todo"
+          @todo-complete="complete"
+        />
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
-import { reactive, computed} from "vue";
+import { reactive, computed } from "vue";
 import axios from "axios";
 import { onMounted } from "vue";
 import Todos from "./components/Todos.vue";
@@ -24,29 +43,24 @@ export default {
   components: {
     Todos,
   },
-  // data() {
-  //   return {
-  //     todos: state.todos
-  //   }
-  // }, 
+
   setup() {
+    //console.log(context.emits)
     const state = reactive({
       todos: [],
-
-      
+    });
+    //let todoTableHeaders = {}
+    let completedTodos = computed(() => {
+      return state.todos.filter((x) => {
+        return x.completionDate !== null;
+      });
     });
 
-    let completedTodos = computed(() => {
-      return state.todos.filter((x)=> {
-        return x.completionDate !== null
-      })
-    })
-
     let notCompletedTodos = computed(() => {
-      return state.todos.filter((x)=> {
-        return x.completionDate === null
-      })
-    })
+      return state.todos.filter((x) => {
+        return x.completionDate === null;
+      });
+    });
 
     async function fetchTodos() {
       try {
@@ -59,8 +73,21 @@ export default {
       }
     }
 
+    async function completeTodo() {
+      try {
+        const response = await axios.put("/api/todos/${todoID}", props.todo);
+      } catch (error) {
+        console.log(error);
+      }
+      console.log("I WAS CLICKED");
+    }
+
+    const complete = () => {
+      console.log("I WAS CLICKED");
+    };
+
     onMounted(async () => {
-      console.log("I MOUNTED")
+      console.log("I MOUNTED");
       state.todos = await fetchTodos();
       console.log("THE TODOS", state.todos);
     });
@@ -70,41 +97,37 @@ export default {
       onMounted,
       fetchTodos,
       completedTodos,
-      notCompletedTodos
+      notCompletedTodos,
+      completeTodo,
+      complete,
     };
-  }
-  // ,
-  // computed: {
-  //   returnCompleted() {
-  //     let completedTodos = []
-  //     for (todo of this.todos) {
-  //       if (todo.completionDate !== null) {
-  //         completedTodos.push(todo)
-  //       }
-  //     }
-  //     return completedTodos
-      
-  //   },
-  //   returnNotCompleted() {
-  //     let NotCompletedTodos = []
-  //     for (todo of this.todos) {
-  //       if (todo.completionDate === null) {
-  //         NotCompletedTodos.push(todo)
-  //       }
-  //     }
-  //     return NotCompletedTodos
-  //   }
-  // }
+  },
 };
 </script>
 
 <style>
+body {
+  background: #d8e2dc;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  /* color: #2c3e50; */
   margin-top: 60px;
+  /* background-image: linear-gradient(#3C4858, white); */
+}
+
+.todos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* width: 75% */
+}
+
+table {
+  width: 75%;
 }
 </style>
