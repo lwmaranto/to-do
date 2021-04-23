@@ -73,17 +73,17 @@ export default {
       }
     }
 
-    async function completeTodo() {
-      try {
-        const response = await axios.put("/api/todos/${todoID}", props.todo);
-      } catch (error) {
-        console.log(error);
-      }
-      console.log("I WAS CLICKED");
-    }
+    // async function completeTodo() {
+    //   try {
+    //     const response = await axios.put("/api/todos/${todoID}", props.todo);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
 
-    const complete = () => {
-      console.log("I WAS CLICKED");
+    const complete = (value) => {
+      value.completionDate = Date.now()
+      console.log("I WAS CLICKED", value);
     };
 
     onMounted(async () => {
@@ -98,7 +98,7 @@ export default {
       fetchTodos,
       completedTodos,
       notCompletedTodos,
-      completeTodo,
+      //completeTodo,
       complete,
     };
   },

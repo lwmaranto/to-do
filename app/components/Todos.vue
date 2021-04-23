@@ -29,7 +29,7 @@ export default {
   methods: {
     todoCompleted() {
       //console.log('I WAS CLICKED')
-      this.$emit('todo-complete')
+      this.$emit('todo-complete', this.todo)
     }
   },
 // setup() {
