@@ -1,43 +1,45 @@
 <template>
-  
-    <tr class="todo">
-      <td>
-      {{todo.todo}}
-      </td>
-      <td>
-      {{todo.dueDate}}
-      </td>
-      <td>
-      {{todo.completionDate}}
-      </td>
-      <td>
-      <button v-if="!todo.completionDate" @click="todoCompleted">COMPLETED</button>
+  <tr class="todo">
+    <td>
+      {{ todo.todo }}
+    </td>
+    <td>
+      {{ todo.dueDate }}
+    </td>
+    <td>
+      {{ todo.completionDate }}
+    </td>
+    <td>
+      <button v-if="!todo.completionDate" @click="todoCompleted">
+        COMPLETED
+      </button>
       <button v-else @click="uncompleteTodo">ADD ME BACK</button>
-      </td>
-    </tr>
-  
+    </td>
+  </tr>
 </template>
 
 <script>
 import axios from "axios";
-import moment from 'moment';
+import moment from "moment";
 export default {
-  name: 'Todos',
+  name: "Todos",
   props: {
     todo: Object,
   },
-  emits: ['todo-complete'],
-  methods: {
-    todoCompleted() {
-      //console.log('I WAS CLICKED')
-      this.todo.completionDate = moment(Date.now()).format('LLLL')
-      this.$emit('todo-complete', this.todo)
-    },
-    uncompleteTodo() {
-      this.todo.completionDate = null
+  setup(props, context) {
+    function todoCompleted() {
+      props.todo.completionDate = moment(Date.now()).format("LLLL");
+      context.emit("todo-complete", props.todo);
     }
-  }  
-}
+    function uncompleteTodo() {
+      props.todo.completionDate = null;
+    }
+    return {
+      todoCompleted,
+      uncompleteTodo,
+    };
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -45,7 +47,7 @@ export default {
 td {
   border-style: dotted;
   padding: 5px;
-  width: 20%
+  width: 20%;
 }
 
 h3 {

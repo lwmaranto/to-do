@@ -37,7 +37,7 @@ import { reactive, computed } from "vue";
 import axios from "axios";
 import { onMounted } from "vue";
 import Todos from "./components/Todos.vue";
-import moment from 'moment';
+import moment from "moment";
 
 export default {
   name: "App",
@@ -85,7 +85,7 @@ export default {
     const complete = (value) => {
       // value.completionDate = moment(Date.now()).format('LLLL')
       // console.log("I WAS CLICKED", value);
-      console.log(state.todos)
+      console.log(state.todos);
     };
 
     onMounted(async () => {
