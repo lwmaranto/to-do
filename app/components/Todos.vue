@@ -11,7 +11,8 @@
       {{todo.completionDate}}
       </td>
       <td>
-      <button @click="todoCompleted">COMPLETED</button>
+      <button v-if="!todo.completionDate" @click="todoCompleted">COMPLETED</button>
+      <button v-else @click="uncompleteTodo">ADD ME BACK</button>
       </td>
     </tr>
   
@@ -19,7 +20,7 @@
 
 <script>
 import axios from "axios";
-
+import moment from 'moment';
 export default {
   name: 'Todos',
   props: {
@@ -29,21 +30,13 @@ export default {
   methods: {
     todoCompleted() {
       //console.log('I WAS CLICKED')
+      this.todo.completionDate = moment(Date.now()).format('LLLL')
       this.$emit('todo-complete', this.todo)
+    },
+    uncompleteTodo() {
+      this.todo.completionDate = null
     }
-  },
-// setup() {
-//  function todoCompleted() {
-//    console.log('I WAS CLICKED')
-//    this.$emit('todo-complete')
-//  }
-// return {
-//   // complete
-//   todoCompleted
-// }
-// }
-
-  
+  }  
 }
 </script>
 
