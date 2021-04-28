@@ -6,7 +6,7 @@
     <td>
       {{ todo.dueDate }}
     </td>
-    <td>
+    <td v-if="todo.completionDate">
       {{ todo.completionDate }}
     </td>
     <td>

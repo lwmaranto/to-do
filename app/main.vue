@@ -4,12 +4,11 @@
 
     <div class="todos">
       <h2>Completed Todos</h2>
-
-      <table>
+      <h3 v-if="notCompletedTodos.length < 1">You finished all your todos!</h3>
+      <table v-else>
         <tr>
           <th>TODO</th>
           <th>DUE DATE</th>
-          <th>COMPLETED AT</th>
           <th>COMPLETED</th>
         </tr>
         <Todos
@@ -20,7 +19,14 @@
         />
       </table>
       <h2>Completed Todos</h2>
-      <table>
+      <h3 v-if="completedTodos.length < 1">You better get to work completing those todos!</h3>
+      <table v-else>
+         <tr>
+          <th>TODO</th>
+          <th>DUE DATE</th>
+          <th>COMPLETED AT</th>
+          <th>COMPLETED</th>
+        </tr>
         <Todos
           v-for="todo in completedTodos"
           :key="todo.id"
@@ -37,7 +43,6 @@ import { reactive, computed } from "vue";
 import axios from "axios";
 import { onMounted } from "vue";
 import Todos from "./components/Todos.vue";
-import moment from "moment";
 
 export default {
   name: "App",
@@ -50,7 +55,6 @@ export default {
     const state = reactive({
       todos: [],
     });
-    //let todoTableHeaders = {}
     let completedTodos = computed(() => {
       return state.todos.filter((x) => {
         return x.completionDate !== null;
