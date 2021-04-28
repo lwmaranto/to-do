@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import {completeTodo} from "../database/store"
 import moment from "moment";
 export default {
   name: "Todos",
@@ -30,6 +30,7 @@ export default {
     function todoCompleted() {
       props.todo.completionDate = moment(Date.now()).format("LLLL");
       context.emit("todo-complete", props.todo);
+      completeTodo(props.todo.id, props.todo)
     }
     function uncompleteTodo() {
       props.todo.completionDate = null;

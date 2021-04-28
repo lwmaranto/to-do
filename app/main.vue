@@ -74,17 +74,9 @@ export default {
       }
     }
 
-    // async function completeTodo() {
-    //   try {
-    //     const response = await axios.put("/api/todos/${todoID}", props.todo);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
+   
 
     const complete = (value) => {
-      // value.completionDate = moment(Date.now()).format('LLLL')
-      // console.log("I WAS CLICKED", value);
       console.log(state.todos);
     };
 
